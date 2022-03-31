@@ -10,5 +10,9 @@
 
 모델2 게시판
 
+<script>
+	location.href="./BoardListAction.do";
+</script>
+
 </body>
 </html>

@@ -2,6 +2,10 @@
 select * from tab;
 select * from seq;
 select * from model2;
+select count(*) from model2;
+
+insert into model2 values(model2_seq.nextval,'홍길동','1234','모델2게시판',
+	'게시판 내용','',model2_seq.nextval,0,0,0,sysdate);
 
 
 create table model2(
@@ -21,3 +25,4 @@ create sequence model2_seq
 	start with 1
 	increment by 1
 	nocache;
+	

@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import service.Action;
 import service.ActionForward;
 import service.BoardAddAction;
+import service.BoardDetailAction;
 import service.BoardListAction;
+import service.BoardReply;
+import service.BoardReplyAction;
 
 @WebServlet("*.do")	// do 확장자로 요청하는 요청을 받겠다는 의미
 public class BoardFrontController extends HttpServlet {
@@ -45,6 +48,39 @@ public class BoardFrontController extends HttpServlet {
 		}else if(command.equals("/BoardListAction.do")) {
 			try {
 				action = new BoardListAction();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		// 글작성 폼
+		}else if(command.equals("/BoardForm.do")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("./board/qna_board_write.jsp");
+			
+		// 상세 페이지
+		}else if(command.equals("/BoardDetailAction.do")) {
+			try {
+				action = new BoardDetailAction();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		// 댓글 폼
+		}else if(command.equals("/BoardReplyAction.do")) {
+			try {
+				action = new BoardReplyAction();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		// 댓글 작성
+		}else if(command.equalsIgnoreCase("/BoardReply.do")) {
+			try {
+				action = new BoardReply();
 				forward = action.execute(request, response);
 			}catch (Exception e) {
 				e.printStackTrace();
