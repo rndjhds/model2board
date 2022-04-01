@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import service.Action;
 import service.ActionForward;
 import service.BoardAddAction;
+import service.BoardDelete;
 import service.BoardDetailAction;
 import service.BoardListAction;
+import service.BoardModify;
+import service.BoardModifyAction;
 import service.BoardReply;
 import service.BoardReplyAction;
 
@@ -81,6 +84,39 @@ public class BoardFrontController extends HttpServlet {
 		}else if(command.equalsIgnoreCase("/BoardReply.do")) {
 			try {
 				action = new BoardReply();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+	
+		// 수정 폼
+		}else if(command.equals("/BoardModifyAction.do")) {
+			try {
+				action = new BoardModifyAction();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		// 글수정
+		}else if(command.equals("/BoardModify.do")) {
+			try {
+				action = new BoardModify();
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		// 삭제 폼
+		}else if(command.equals("/BoardDeleteAction.do")) {
+			forward = new ActionForward();
+			forward.setRedirect(false);	// dispatcher방식으로 포워딩
+			forward.setPath("./board/qna_board_delete.jsp");
+			
+		// 삭제
+		}else if(command.equals("/BoardDelete.do")) {
+			try {
+				action = new BoardDelete();
 				forward = action.execute(request, response);
 			}catch (Exception e) {
 				e.printStackTrace();

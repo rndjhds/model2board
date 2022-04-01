@@ -3,6 +3,7 @@ package service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.BoardDAO;
 import model.BoardBean;
 
 public class BoardReply implements Action{
@@ -11,6 +12,8 @@ public class BoardReply implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("BoardReply");
+		
+		request.setCharacterEncoding("utf-8");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		int board_re_ref = Integer.parseInt(request.getParameter("board_re_ref"));
@@ -28,7 +31,13 @@ public class BoardReply implements Action{
 		board.setBoard_subject(request.getParameter("board_subject"));
 		board.setBoard_content(request.getParameter("board_content"));
 		
+		BoardDAO dao = BoardDAO.getInstance();
+		int result = dao.boardReply(board);	// 댓글 작성
+		if(result == 1) System.out.println("댓글 작성 성공");
+		
 		ActionForward forward = new ActionForward();
+		forward.setRedirect(true);
+		forward.setPath("./BoardListAction.do?page="+page);
 		
 		return forward;
 	}
